@@ -13,4 +13,7 @@ Starlight will easily adapt to understand context in the conversation to be more
 ### Vocal Capibilities
 Starlight can interact with the user with speach-to-text and text-to-speach to have more lively conversations
 ### Voice Synthisis with Emotions
-Starlight will adapt its voice with its emotion
+Starlight will adapt its voice with its emotion and much more!
+
+# when and what you should expect the first version
+ProjectStarlight-1 should release by late 2025 to mid 2026 with chat completion functions being the first thing available
