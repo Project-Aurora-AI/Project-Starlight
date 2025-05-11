@@ -1,0 +1,23 @@
+model:
+  name: "starlight1"
+  hidden_size: 768
+  num_layers: 12
+  vocab_size: 50257
+
+tokenizer:
+  pretrained_model: "bert-base-uncased"
+
+training:
+  batch_size: 8
+  epochs: 5
+  learning_rate: 5e-5
+  seed: 42
+  max_seq_length: 512
+  save_path: "models/final_model"
+  resume_from_checkpoint: false
+  checkpoint_path: "models/checkpoints/"
+
+data:
+  train_path: "data/processed/train.json"
+  val_path: "data/processed/val.json"
+  tokenizer_path: "tokenizer/"

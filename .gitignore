@@ -1,3 +1,60 @@
-.gitignore
+# private models
 starlightllmuncensored.guff
 starlightllmuncensoredinitiative.py
+
+# Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+__env__/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Dataset files (large data files, model checkpoints, etc.)
+data/raw/
+data/processed/
+models/checkpoints/
+models/final_model/
+
+# Tokenizer files
+tokenizer/
+
+# PyCharm, VSCode, and other IDE files
+.idea/
+.vscode/
+
+# Python package distribution
+dist/
+build/
+*.egg-info/
+
+# Coverage reports
+*.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.coveragerc
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment configuration
+.env
+*.env
+
+# TensorFlow / PyTorch model files
+*.h5
+*.ckpt
+*.pkl
