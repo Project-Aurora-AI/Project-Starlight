@@ -4,6 +4,7 @@
 # Project Starlight
 # What is Project Starlight?
 Project starlight is codename for reach's LLM 'ProjectStarlightLLM'
+Starlight Stands for **Self-Taught Autonomous Reasoning Language Intelligence Generative Hypermodel Technology**
 
 # What are some capibilities?
 ## Chat Completions
@@ -16,4 +17,4 @@ Starlight can interact with the user with speach-to-text and text-to-speach to h
 Starlight will adapt its voice with its emotion and much more!
 
 # when and what you should expect the first version
-ProjectStarlight-1 should release by late 2025 to mid 2026 with chat completion functions being the first thing available
+Starlight-1 should release by late 2025 to mid 2026 with chat completion functions being the first thing available
