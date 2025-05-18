@@ -14,8 +14,11 @@ class CustomModel(nn.Module):
         """
         super(CustomModel, self).__init__()
         
+        # Add an embedding layer to handle input token IDs
+        self.embedding = nn.Embedding(input_size, hidden_size)
+        
         # Define the layers
-        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.fc1 = nn.Linear(hidden_size, hidden_size)
         self.fc2 = nn.Linear(hidden_size, hidden_size)
         self.fc3 = nn.Linear(hidden_size, output_size)
 
@@ -34,6 +37,9 @@ class CustomModel(nn.Module):
         Returns:
             torch.Tensor: The output of the network after forward pass.
         """
+        # Pass through the embedding layer
+        x = self.embedding(x)
+        
         # Pass through the first layer and apply activation function
         x = self.fc1(x)
         x = self.relu(x)
@@ -58,8 +64,13 @@ class CustomModel(nn.Module):
         print(self)
 
 def build_model(config):
-    # initialize your model here using config
-    model = CustomModel(config)
+    # Extract model parameters from the config
+    input_size = config["model"]["input_size"]
+    hidden_size = config["model"]["hidden_size"]
+    output_size = config["model"]["output_size"]
+
+    # Initialize the model with the extracted parameters
+    model = CustomModel(input_size, hidden_size, output_size)
     return model
 
 # Example usage:

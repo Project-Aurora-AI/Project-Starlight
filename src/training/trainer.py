@@ -6,7 +6,7 @@ from src.training.metrics import compute_metrics
 
 def train(model, train_loader, val_loader, config, device):
     epochs = config["training"]["epochs"]
-    lr = config["training"]["learning_rate"]
+    lr = float(config["training"]["learning_rate"])  # Ensure learning rate is a float
     save_path = config["training"].get("checkpoint_path", "models/base_model/last.pt")
 
     criterion = nn.CrossEntropyLoss()
@@ -17,8 +17,10 @@ def train(model, train_loader, val_loader, config, device):
         total_loss = 0
 
         for batch in train_loader:
-            inputs, targets = batch
-            inputs, targets = inputs.to(device), targets.to(device)
+            inputs = batch['input_ids'].to(device)
+            inputs = inputs.float()  # Ensure inputs are of type Float
+            inputs = inputs.long()  # Ensure inputs are of type Long for embedding layer
+            targets = batch['labels'].to(device)
 
             optimizer.zero_grad()
             outputs = model(inputs)
@@ -46,8 +48,8 @@ def validate(model, val_loader, criterion, device):
 
     with torch.no_grad():
         for batch in val_loader:
-            inputs, targets = batch
-            inputs, targets = inputs.to(device), targets.to(device)
+            inputs = batch['input_ids'].to(device)
+            targets = batch['labels'].to(device)
 
             outputs = model(inputs)
             loss = criterion(outputs.view(-1, outputs.size(-1)), targets.view(-1))

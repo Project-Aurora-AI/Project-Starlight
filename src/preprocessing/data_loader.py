@@ -1,7 +1,9 @@
 import os
 import torch
+import logging
 from torch.utils.data import Dataset, DataLoader
 from transformers import AutoTokenizer
+from datasets import load_dataset
 
 class TextDataset(Dataset):
     def __init__(self, texts, tokenizer, max_length=512):
@@ -36,9 +38,24 @@ def load_text_file(path):
 def get_dataloaders(config):
     tokenizer = AutoTokenizer.from_pretrained(config["tokenizer"]["pretrained_model"])
 
-    # Load text data
+    # Load local text data
     train_texts = load_text_file(config["data"]["train_path"])
     val_texts = load_text_file(config["data"]["val_path"])
+
+    # Load external datasets (e.g., Hugging Face datasets)
+    external_train = load_dataset("ag_news", split="train[:10%]")
+    external_val = load_dataset("ag_news", split="test[:10%]")
+
+    # Combine local and external datasets
+    train_texts.extend([item["text"] for item in external_train])
+    val_texts.extend([item["text"] for item in external_val])
+
+    if not train_texts:
+        raise ValueError(f"Training data is empty. Check the file at {config['data']['train_path']}")
+    if not val_texts:
+        raise ValueError(f"Validation data is empty. Check the file at {config['data']['val_path']}")
+
+    logging.info(f"Loaded {len(train_texts)} training samples and {len(val_texts)} validation samples.")
 
     train_dataset = TextDataset(train_texts, tokenizer, config["training"]["max_seq_length"])
     val_dataset = TextDataset(val_texts, tokenizer, config["training"]["max_seq_length"])
